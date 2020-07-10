@@ -1,6 +1,5 @@
-news-viewer/public/robots.txt
-context-tutorial/src/serviceWorker.js
-context-tutorial/src/App.test.js
-context-tutorial/public/robots.txt
-context-tutorial/package-lock.json
-context-tutorial/.gitignore
+serviceWorker.js
+App.test.js
+robots.txt
+package-lock.json
+.gitignore
