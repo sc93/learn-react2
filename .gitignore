@@ -3,3 +3,6 @@ App.test.js
 robots.txt
 package-lock.json
 .gitignore
+.cache
+dist
+node_modules
