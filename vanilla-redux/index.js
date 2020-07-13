@@ -51,14 +51,13 @@ const render = () => {
         divToggle.classList.remove("active");
     }
     counter.innerText = state.counter;
+    console.log("상태가 업데이트 됨");
 };
 
 render();
 store.subscribe(render);
 
 divToggle.onclick = () => {
-    console.log("toggleSwitch");
-    console.log(togleSwitch());
     store.dispatch(togleSwitch());
 };
 btnIncrease.onclick = () => {
