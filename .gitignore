@@ -1,4 +1,5 @@
 serviceWorker.js
+setupTests.js
 App.test.js
 robots.txt
 package-lock.json
