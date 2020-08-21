@@ -97,7 +97,18 @@ export const list = async (ctx) => {
 };
 
 export const read = async (ctx) => {
-    ctx.body = ctx.state.post;
+    const { id } = ctx.params;
+    console.log(id);
+    try {
+        const post = await Post.findById(id).exec();
+        if (!post) {
+            ctx.status = 404;
+            return;
+        }
+        ctx.body = post;
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 };
 
 export const remove = async (ctx) => {
