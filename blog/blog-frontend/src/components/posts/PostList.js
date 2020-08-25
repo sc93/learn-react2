@@ -39,7 +39,6 @@ const PostItemBlock = styled.div`
 
 const PostItem = ({ post }) => {
     const { publishedDate, user, tags, title, body, _id } = post;
-    console.log(post);
     return (
         <PostItemBlock>
             <h2>
@@ -53,9 +52,9 @@ const PostItem = ({ post }) => {
 };
 const PostList = ({ loading, error, posts, showWriteButton }) => {
     if (error) {
+        // console.log(error);
         return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
     }
-    console.log(posts);
     return (
         <PostListBlock>
             <WritePostButtonWrapper>
