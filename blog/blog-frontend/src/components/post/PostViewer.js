@@ -48,9 +48,7 @@ const PostContent = styled.div`
     color: ${palette.gray[8]};
 `;
 
-const PostViewer = ({ post, loading, error }) => {
-    console.log(post);
-    console.log(loading);
+const PostViewer = ({ post, loading, error, actionButtons }) => {
     if (error) {
         if (error.response && error.response.status === 404) {
             return (
@@ -76,6 +74,7 @@ const PostViewer = ({ post, loading, error }) => {
                 />
                 <Tags tags={tags} />
             </PostHead>
+            {actionButtons}
             <PostContent
                 dangerouslySetInnerHTML={{
                     __html: body,

@@ -56,8 +56,8 @@ export const getPostById = async (ctx, next) => {
 };
 
 export const checkOwnPost = (ctx, next) => {
+    console.log(ctx.state);
     const { user, post } = ctx.state;
-
     if (post.user._id.toString() !== user._id) {
         ctx.status = 403;
         return;
@@ -115,7 +115,6 @@ export const list = async (ctx) => {
         const postCount = await Post.countDocuments(query).exec();
 
         ctx.set('Last-page', Math.ceil(postCount / 10));
-        console.log(posts);
         ctx.body = posts.map((post) => ({
             ...post,
             body: removeHtmlAndShorten(post.body),
@@ -127,7 +126,6 @@ export const list = async (ctx) => {
 
 export const read = async (ctx) => {
     const { id } = ctx.params;
-    console.log(id);
     try {
         const post = await Post.findById(id).exec();
         if (!post) {
@@ -141,7 +139,9 @@ export const read = async (ctx) => {
 };
 
 export const remove = async (ctx) => {
+    console.log(ctx);
     const { id } = ctx.params;
+    console.log(id);
     try {
         await Post.findByIdAndRemove(id).exec();
         ctx.status = 204;
@@ -165,12 +165,16 @@ export const update = async (ctx) => {
     }
     const nextData = { ...ctx.request.body };
     if (nextData.body) {
-        nextData.body = sanitizeHTML(nextData.body);
+        nextData.body = sanitizeHTML(nextData.body, sanitizeOption);
     }
     try {
-        const post = await Post.findByIdAndUpdate(id, nextData.body, {
+        const post = await Post.findByIdAndUpdate(id, nextData, {
             new: true,
         }).exec();
+        if (!post) {
+            ctx.status = 404;
+            return;
+        }
         ctx.body = post;
     } catch (error) {
         ctx.throw(500, error);
